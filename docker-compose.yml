@@ -1,0 +1,19 @@
+services:
+  portfolio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: blokhin-portfolio:latest
+    container_name: blokhin-portfolio
+    restart: unless-stopped
+    ports:
+      # Change the left side to another host port if 8080 is busy:
+      # PORT=3000 docker compose up -d
+      - "${PORT:-8080}:80"
+    environment:
+      - TZ=Europe/Moscow
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
